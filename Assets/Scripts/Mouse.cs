@@ -43,7 +43,21 @@ public class Mouse : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = null;
             if (Physics2D.Raycast(mousePos, Camera.main.transform.forward)){
-                if (hit.collider.gameObject.layer == 9)
+                if (hit.collider.gameObject.name.Contains("starting")){
+                    ms.StartpointPresent = false;
+                    Destroy(hit.collider.gameObject);
+                }
+                else if (hit.collider.gameObject.name.Contains("Player"))
+                {
+                    ms.PlayerPlaced = false;
+                    Destroy(hit.collider.gameObject);
+                }
+                else if (hit.collider.gameObject.name.Contains("End"))
+                {
+                    ms.EndPointPlaced = false;
+                    Destroy(hit.collider.gameObject);
+                }
+                else if (hit.collider.gameObject.layer == 9)
                 {
                     Destroy(hit.collider.gameObject);
                 }  
@@ -81,19 +95,20 @@ public class Mouse : MonoBehaviour
 
         else if (itemOption == ItemList.Player) // player start
         {
-            if (ms.StartpointPresent)
+            if (ms.StartpointPresent && ms.PlayerPlaced == false)
             {
                 //Create object
                 NewObject = Instantiate(Player, GameObject.FindGameObjectWithTag("Starting").transform.position, Quaternion.identity);
                 NewObject.layer = 9; // set to Spawned Objects layer
                 ms.spriteRenderer.sprite = null;
+                ms.PlayerPlaced = true;
 
                 //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.Player;
             }
-            else
+            else if (ms.StartpointPresent == false)
             {
                 ms.MessagePopup.SetActive(true);
             }
@@ -101,27 +116,34 @@ public class Mouse : MonoBehaviour
 
         else if (itemOption == ItemList.StartPos)
         {
-            //Create object
-            NewObject = Instantiate(StartPos, transform.position, Quaternion.identity);
-            NewObject.layer = 9; // set to Spawned Objects layer
-            ms.StartpointPresent = true;
+            if (ms.StartpointPresent == false)
+            {
+                //Create object
+                NewObject = Instantiate(StartPos, transform.position, Quaternion.identity);
+                NewObject.layer = 9; // set to Spawned Objects layer
+                ms.StartpointPresent = true;
 
-            //Add editor object component and feed it data.
-            EditorObject eo = NewObject.AddComponent<EditorObject>();
-            eo.data.pos = NewObject.transform.position;
-            eo.data.objectType = EditorObject.ObjectType.StartPos;
+                //Add editor object component and feed it data.
+                EditorObject eo = NewObject.AddComponent<EditorObject>();
+                eo.data.pos = NewObject.transform.position;
+                eo.data.objectType = EditorObject.ObjectType.StartPos;
+            }
         }
 
         else if (itemOption == ItemList.EndPos)
         {
-            //Create object
-            NewObject = Instantiate(EndPos, transform.position, Quaternion.identity);
-            NewObject.layer = 9; // set to Spawned Objects layer
+            if (ms.EndPointPlaced == false)
+            {
+                //Create object
+                NewObject = Instantiate(EndPos, transform.position, Quaternion.identity);
+                NewObject.layer = 9; // set to Spawned Objects layer
+                ms.EndPointPlaced = true;
 
-            //Add editor object component and feed it data.
-            EditorObject eo = NewObject.AddComponent<EditorObject>();
-            eo.data.pos = NewObject.transform.position;
-            eo.data.objectType = EditorObject.ObjectType.EndPos;
+                //Add editor object component and feed it data.
+                EditorObject eo = NewObject.AddComponent<EditorObject>();
+                eo.data.pos = NewObject.transform.position;
+                eo.data.objectType = EditorObject.ObjectType.EndPos;
+            }
         }
     }
 

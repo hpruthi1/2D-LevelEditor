@@ -1778,6 +1778,8 @@ MonoBehaviour:
     type: 3}
   EndPos: {fileID: 108368442258060169, guid: 42167e67d1fe84a4f9a8219c0e79cb33, type: 3}
   StartpointPresent: 0
+  PlayerPlaced: 0
+  EndPointPlaced: 0
 --- !u!4 &1403911975
 Transform:
   m_ObjectHideFlags: 0

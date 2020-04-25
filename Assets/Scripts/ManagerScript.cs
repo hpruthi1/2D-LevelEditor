@@ -16,6 +16,10 @@ public class ManagerScript : MonoBehaviour
     public GameObject EndPos;
     [HideInInspector]
     public bool StartpointPresent = false;
+    [HideInInspector]
+    public bool PlayerPlaced = false;
+    [HideInInspector]
+    public bool EndPointPlaced = false;
 
 
     // Start is called before the first frame update
@@ -69,5 +73,4 @@ public class ManagerScript : MonoBehaviour
     {
         MessagePopup.SetActive(false);
     }
-
 }

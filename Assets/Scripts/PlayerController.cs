@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -80,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("End"))
         {
-            Debug.Log("Finish");
+            SceneManager.LoadScene(0);
         }
     }
 }
