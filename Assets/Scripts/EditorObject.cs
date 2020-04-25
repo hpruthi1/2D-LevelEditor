@@ -8,7 +8,7 @@ public class EditorObject : MonoBehaviour // inherit from monobehaviour to use a
     [Serializable] // serialize the Data struct
     public struct Data
     {
-        public Vector2 pos; // the object's position
+        public Vector2 pos; // the object's position.
         public ObjectType objectType; // the type of object.
     }
 
