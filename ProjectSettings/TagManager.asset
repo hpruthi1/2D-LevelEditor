@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Coin
+  - Starting
+  - End
   layers:
   - Default
   - TransparentFX

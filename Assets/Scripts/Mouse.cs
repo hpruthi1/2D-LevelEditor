@@ -11,6 +11,8 @@ public class Mouse : MonoBehaviour
     public GameObject Player;
     public GameObject Platform;
     public GameObject Coin;
+    public GameObject StartPos;
+    public GameObject EndPos;
     public ManagerScript ms;
 
     private Vector2 mousePos;
@@ -79,8 +81,10 @@ public class Mouse : MonoBehaviour
 
         else if (itemOption == ItemList.Player) // player start
         {
+            if (ms.StartpointPresent)
+            {
                 //Create object
-                NewObject = Instantiate(Player, transform.position, Quaternion.identity);
+                NewObject = Instantiate(Player, GameObject.FindGameObjectWithTag("Starting").transform.position, Quaternion.identity);
                 NewObject.layer = 9; // set to Spawned Objects layer
                 ms.spriteRenderer.sprite = null;
 
@@ -89,6 +93,36 @@ public class Mouse : MonoBehaviour
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.Player;
             }
+            else
+            {
+                ms.MessagePopup.SetActive(true);
+            }
         }
+
+        else if (itemOption == ItemList.StartPos)
+        {
+            //Create object
+            NewObject = Instantiate(StartPos, transform.position, Quaternion.identity);
+            NewObject.layer = 9; // set to Spawned Objects layer
+            ms.StartpointPresent = true;
+
+            //Add editor object component and feed it data.
+            EditorObject eo = NewObject.AddComponent<EditorObject>();
+            eo.data.pos = NewObject.transform.position;
+            eo.data.objectType = EditorObject.ObjectType.StartPos;
+        }
+
+        else if (itemOption == ItemList.EndPos)
+        {
+            //Create object
+            NewObject = Instantiate(EndPos, transform.position, Quaternion.identity);
+            NewObject.layer = 9; // set to Spawned Objects layer
+
+            //Add editor object component and feed it data.
+            EditorObject eo = NewObject.AddComponent<EditorObject>();
+            eo.data.pos = NewObject.transform.position;
+            eo.data.objectType = EditorObject.ObjectType.EndPos;
+        }
+    }
 
  }

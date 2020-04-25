@@ -7,14 +7,21 @@ public class ManagerScript : MonoBehaviour
 {
     public Mouse user;
     public SpriteRenderer spriteRenderer;
+    public GameObject MessagePopup;
     private LevelEditor level;
     public GameObject Platform;
     public GameObject Coin;
     public GameObject Player;
+    public GameObject StartPos;
+    public GameObject EndPos;
+    [HideInInspector]
+    public bool StartpointPresent = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        MessagePopup.SetActive(false);
         CreateEditor(); // create new instance of level.
     }
 
@@ -44,6 +51,23 @@ public class ManagerScript : MonoBehaviour
     {
         user.itemOption = Mouse.ItemList.Player; // set object to place as player marker
         spriteRenderer.sprite = Player.GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public void ChooseStartPoint()
+    {
+        user.itemOption = Mouse.ItemList.StartPos; // set object to place as player marker
+        spriteRenderer.sprite = StartPos.GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public void ChooseEndPoint()
+    {
+        user.itemOption = Mouse.ItemList.EndPos; // set object to place as player marker
+        spriteRenderer.sprite = EndPos.GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public void OnContinueButton()
+    {
+        MessagePopup.SetActive(false);
     }
 
 }

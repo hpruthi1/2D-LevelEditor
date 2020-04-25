@@ -75,4 +75,12 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("End"))
+        {
+            Debug.Log("Finish");
+        }
+    }
 }
