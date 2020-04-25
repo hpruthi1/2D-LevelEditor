@@ -34,8 +34,16 @@ public class Mouse : MonoBehaviour
         {
             if (!EventSystem.current.IsPointerOverGameObject()) // check if mouse over UI object.
             {
-                if (Colliding == false) // create an object if not colliding with anything.
-                    CreateObject();
+                if (Physics2D.Raycast(mousePos, Camera.main.transform.forward))
+                {
+                    if (hit.collider.gameObject.name.Contains("Platform") || hit.collider.gameObject.name.Contains("Bronze"))
+                    {
+                        return;
+                    }
+                }
+                else { 
+                        CreateObject();
+                    }
             }
         }
 
