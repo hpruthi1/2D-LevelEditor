@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class Mouse : MonoBehaviour
 {
-    public enum ItemList { StartPos, EndPos, Platform, Coin, Player }; // the list of items
+    public enum ItemList { StartPos, EndPos, Platform, Coin, Player };
 
     [HideInInspector]
-    public ItemList itemOption = ItemList.Platform; // setting the platform as the default object
+    public ItemList itemOption = ItemList.Platform;
 
     public GameObject Player;
     public GameObject Platform;
@@ -16,7 +16,6 @@ public class Mouse : MonoBehaviour
     public ManagerScript ms;
 
     private Vector2 mousePos;
-    public bool Colliding;
     private Ray ray;
 
     // Update is called once per frame
@@ -32,7 +31,7 @@ public class Mouse : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Camera.main.transform.forward);
         if (Input.GetMouseButtonDown(0))
         {
-            if (!EventSystem.current.IsPointerOverGameObject()) // check if mouse over UI object.
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
                 if (Physics2D.Raycast(mousePos, Camera.main.transform.forward))
                 {
@@ -41,9 +40,11 @@ public class Mouse : MonoBehaviour
                         return;
                     }
                 }
-                else { 
-                        CreateObject();
-                    }
+
+                else 
+                {
+                    CreateObject();
+                }
             }
         }
 
@@ -78,40 +79,34 @@ public class Mouse : MonoBehaviour
     {
         GameObject NewObject;
 
-        if (itemOption == ItemList.Platform) // Platform
+        if (itemOption == ItemList.Platform)
         {
-            //Create object
             NewObject = Instantiate(Platform, transform.position, Quaternion.identity);
-            NewObject.layer = 9; // set to Spawned Objects layer
+            NewObject.layer = 9;
 
-            //Add editor object component and feed it data.
             EditorObject eo = NewObject.AddComponent<EditorObject>();
             eo.data.pos = NewObject.transform.position;
             eo.data.objectType = EditorObject.ObjectType.Platform;
         }
-        else if (itemOption == ItemList.Coin) // coin
+        else if (itemOption == ItemList.Coin)
         {
-            //Create object
             NewObject = Instantiate(Coin, transform.position, Quaternion.identity);
-            NewObject.layer = 9; // set to Spawned Objects layer
+            NewObject.layer = 9;
 
-            //Add editor object component and feed it data.
             EditorObject eo = NewObject.AddComponent<EditorObject>();
             eo.data.pos = NewObject.transform.position;
             eo.data.objectType = EditorObject.ObjectType.Coin;
         }
 
-        else if (itemOption == ItemList.Player) // player start
+        else if (itemOption == ItemList.Player)
         {
             if (ms.StartpointPresent && ms.PlayerPlaced == false)
             {
-                //Create object
                 NewObject = Instantiate(Player, GameObject.FindGameObjectWithTag("Starting").transform.position, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                NewObject.layer = 9;
                 ms.spriteRenderer.sprite = null;
                 ms.PlayerPlaced = true;
 
-                //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.Player;
@@ -126,12 +121,10 @@ public class Mouse : MonoBehaviour
         {
             if (ms.StartpointPresent == false)
             {
-                //Create object
                 NewObject = Instantiate(StartPos, transform.position, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                NewObject.layer = 9;
                 ms.StartpointPresent = true;
 
-                //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.StartPos;
@@ -142,12 +135,10 @@ public class Mouse : MonoBehaviour
         {
             if (ms.EndPointPlaced == false)
             {
-                //Create object
                 NewObject = Instantiate(EndPos, transform.position, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                NewObject.layer = 9;
                 ms.EndPointPlaced = true;
 
-                //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.EndPos;

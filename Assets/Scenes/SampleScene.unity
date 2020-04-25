@@ -1046,7 +1046,6 @@ MonoBehaviour:
     type: 3}
   EndPos: {fileID: 108368442258060169, guid: 42167e67d1fe84a4f9a8219c0e79cb33, type: 3}
   ms: {fileID: 1403911974}
-  Colliding: 0
 --- !u!4 &657932595
 Transform:
   m_ObjectHideFlags: 0
@@ -2259,7 +2258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df7f6a704eab8b40ae581de9cb55722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user: {fileID: 657932594}
+  User: {fileID: 657932594}
   SaveLevelName: {fileID: 2043033580}
   LoadlevelName: {fileID: 1677960812}
   SaveLoadMessage: {fileID: 1300923600}

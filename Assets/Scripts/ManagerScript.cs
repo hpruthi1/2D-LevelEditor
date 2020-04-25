@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ManagerScript : MonoBehaviour
 {
-    public Mouse user;
+    public Mouse User;
     public InputField SaveLevelName;
     public InputField LoadlevelName;
     public Text SaveLoadMessage;
@@ -29,46 +29,43 @@ public class ManagerScript : MonoBehaviour
     void Start()
     {
         MessagePopup.SetActive(false);
-        CreateEditor(); // create new instance of level.
+        CreateEditor();
     }
 
     LevelEditor CreateEditor()
     {
         level = new LevelEditor();
-        level.editorObjects = new List<EditorObject.Data>(); // make new list of editor object data.
+        level.editorObjects = new List<EditorObject.Data>();
         return level;
     }
 
-    /// <summary>
-    /// Choosing an object
-    /// </summary>
     public void ChoosePlatform()
     {
-        user.itemOption = Mouse.ItemList.Platform; // set object to place as Platform
+        User.itemOption = Mouse.ItemList.Platform; // set object to place as Platform
         spriteRenderer.sprite = Platform.GetComponent<SpriteRenderer>().sprite;
     }
     
     public void ChooseCoin()
     {
-        user.itemOption = Mouse.ItemList.Coin; // set object to place as coin
+        User.itemOption = Mouse.ItemList.Coin; // set object to place as coin
         spriteRenderer.sprite = Coin.GetComponent<SpriteRenderer>().sprite;
     }
 
     public void ChoosePlayerStart()
     {
-        user.itemOption = Mouse.ItemList.Player; // set object to place as player marker
+        User.itemOption = Mouse.ItemList.Player; // set object to place as player
         spriteRenderer.sprite = Player.GetComponent<SpriteRenderer>().sprite;
     }
 
     public void ChooseStartPoint()
     {
-        user.itemOption = Mouse.ItemList.StartPos; // set object to place as player marker
+        User.itemOption = Mouse.ItemList.StartPos; // set object to place as startpoint
         spriteRenderer.sprite = StartPos.GetComponent<SpriteRenderer>().sprite;
     }
 
     public void ChooseEndPoint()
     {
-        user.itemOption = Mouse.ItemList.EndPos; // set object to place as player marker
+        User.itemOption = Mouse.ItemList.EndPos; // set object to place as endpoint
         spriteRenderer.sprite = EndPos.GetComponent<SpriteRenderer>().sprite;
     }
 
@@ -139,36 +136,30 @@ public class ManagerScript : MonoBehaviour
         {
             if(level.editorObjects[i].objectType == EditorObject.ObjectType.Platform)
             {
-                //Create object
                 NewObject = Instantiate(Platform, level.editorObjects[i].pos, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                NewObject.layer = 9;
 
-                //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.Platform;
             }
 
-            else if (level.editorObjects[i].objectType == EditorObject.ObjectType.Coin) // coin
+            else if (level.editorObjects[i].objectType == EditorObject.ObjectType.Coin)
             {
-                //Create object
                 NewObject = Instantiate(Coin, level.editorObjects[i].pos, Quaternion.identity);
-                NewObject.layer = 9; // set to Spawned Objects layer
+                NewObject.layer = 9;
 
-                //Add editor object component and feed it data.
                 EditorObject eo = NewObject.AddComponent<EditorObject>();
                 eo.data.pos = NewObject.transform.position;
                 eo.data.objectType = EditorObject.ObjectType.Coin;
             }
 
-            else if (level.editorObjects[i].objectType == EditorObject.ObjectType.Player) // player start
+            else if (level.editorObjects[i].objectType == EditorObject.ObjectType.Player)
             {
-                    //Create object
                     NewObject = Instantiate(Player, level.editorObjects[i].pos, Quaternion.identity);
                     NewObject.layer = 9; // set to Spawned Objects layer
                     PlayerPlaced = true;
 
-                    //Add editor object component and feed it data.
                     EditorObject eo = NewObject.AddComponent<EditorObject>();
                     eo.data.pos = NewObject.transform.position;
                     eo.data.objectType = EditorObject.ObjectType.Player;
@@ -176,12 +167,10 @@ public class ManagerScript : MonoBehaviour
 
             else if (level.editorObjects[i].objectType == EditorObject.ObjectType.StartPos)
             {
-                    //Create object
                     NewObject = Instantiate(StartPos, level.editorObjects[i].pos, Quaternion.identity);
                     NewObject.layer = 9; // set to Spawned Objects layer
                     StartpointPresent = true;
 
-                    //Add editor object component and feed it data.
                     EditorObject eo = NewObject.AddComponent<EditorObject>();
                     eo.data.pos = NewObject.transform.position;
                     eo.data.objectType = EditorObject.ObjectType.StartPos;
@@ -189,12 +178,10 @@ public class ManagerScript : MonoBehaviour
 
             else if (level.editorObjects[i].objectType == EditorObject.ObjectType.EndPos)
             {
-                    //Create object
                     NewObject = Instantiate(EndPos, level.editorObjects[i].pos, Quaternion.identity);
                     NewObject.layer = 9; // set to Spawned Objects layer
                     EndPointPlaced = true;
 
-                    //Add editor object component and feed it data.
                     EditorObject eo = NewObject.AddComponent<EditorObject>();
                     eo.data.pos = NewObject.transform.position;
                     eo.data.objectType = EditorObject.ObjectType.EndPos;
